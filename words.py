@@ -1,11 +1,17 @@
 import os
 import re
 import string
+from jinja2 import Template
 
 
 def filelist(root):
     """Return a fully-qualified list of filenames under root directory"""
-
+    my_list = []
+    for root, direct, files in os.walk("root"):
+        for names in files:
+            my_list.append(os.path.join(root,names))
+    return my_list
+        
 
 def get_text(fileName):
     f = open(fileName, encoding='latin-1')
@@ -40,6 +46,32 @@ def results(docs, terms):
     that have at least one of the search terms.
     Return at most 100 results.  Arg terms is a list of string terms.
     """
+    full_qualifed = filelist(???)
+    qual_name = filenames(full_qualifed)
+    if len(qual_name) > 99:
+    	header = qual_name[:99]
+    else:
+    	header = qual_name [:(max(qual_name))]
+
+    data??
+
+	# complete jinja2 template
+	complete_data = """
+	<html>
+	<body>
+	<table>
+	<tr>{% for item in header %}<th>{{item}}</th>{% endfor %}</tr>
+	{% for item in data %}<tr>{% for parts in item %}<td>{{parts}}</td>\
+	{% endfor %}</tr>\n{% endfor %}\
+	</table>
+	</body>
+	</html>
+	"""
+
+	# call the Template class and render the template
+	template = Template(complete_data)
+	template = template.render(header=header, data=data)
+
 
 
 def filenames(docs):
